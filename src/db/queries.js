@@ -43,12 +43,27 @@ async function deleteBulkProducts(ids) {
   await pool.query("DELETE FROM products WHERE id = ANY($1)", [ids]);
 }
 
+async function getAllCategories() {
+  const data = await pool.query("SELECT * FROM categories");
+  return data.rows;
+}
+
+async function postCreateCategory(name) {
+  await pool.query("INSERT INTO categories (name) VALUES ($1)", [name]);
+}
+
+async function deleteCateogryById(id) {
+  await pool.query("DELETE FROM categories WHERE id=$1", [id]);
+}
+
 module.exports = {
   getAllProducts,
   getProductByFilters,
   getProductBySearch,
   postCreateProduct,
-  putUpdateProductPost,
+  putUpdateProduct,
   deleteProductById,
   deleteBulkProducts,
+  postCreateCategory,
+  deleteCateogryById,
 };
