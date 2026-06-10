@@ -66,7 +66,7 @@ async function postCreateCategory(name) {
   return data.rows[0];
 }
 
-async function deleteCateogryById(id) {
+async function deleteCategoryById(id) {
   await pool.query("DELETE FROM categories WHERE id=$1", [id]);
 }
 
@@ -81,5 +81,5 @@ module.exports = {
   getAllCategories,
   postCreateCategory,
   putUpdateCategory,
-  deleteCateogryById,
+  deleteCategoryById,
 };

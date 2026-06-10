@@ -5,7 +5,7 @@ async function createCategory(req, res) {
   let newCategory = null;
 
   try {
-    newCategory = await db.createCategory(name);
+    newCategory = await db.postCreateCategory(name);
   } catch (err) {
     throw new Error("Error encountered when creating category: " + err.message);
   }
@@ -36,7 +36,7 @@ async function deleteCategory(req, res) {
     );
   }
 
-  res.send(200).end();
+  res.status(200).end();
 }
 
 module.exports = {
