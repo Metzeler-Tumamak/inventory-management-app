@@ -48,6 +48,14 @@ async function getAllCategories() {
   return data.rows;
 }
 
+async function putUpdateCategory(id, name) {
+  const data = await pool.query("UPDATE categories SET name=$1 WHERE id=$2", [
+    name,
+    id,
+  ]);
+  return data.rows[0];
+}
+
 async function postCreateCategory(name) {
   await pool.query("INSERT INTO categories (name) VALUES ($1)", [name]);
 }
@@ -64,6 +72,8 @@ module.exports = {
   putUpdateProduct,
   deleteProductById,
   deleteBulkProducts,
+  getAllCategories,
   postCreateCategory,
+  putUpdateCategory,
   deleteCateogryById,
 };
