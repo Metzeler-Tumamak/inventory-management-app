@@ -12,9 +12,9 @@ app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "../public")));
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/", indexRouter);
 app.use("/products", productsRouter);
 app.use("/categories", categoriesRouter);
+app.use("/", indexRouter);
 app.use((err, req, res, next) => {
   res.status(500).send(err.message);
 });
