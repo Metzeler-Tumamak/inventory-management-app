@@ -8,3 +8,5 @@ router
   .post(controller.createProduct)
   .put(controller.updateProduct)
   .delete(controller.deleteProduct);
+
+module.exports = router;

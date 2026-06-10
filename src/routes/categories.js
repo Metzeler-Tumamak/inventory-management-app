@@ -8,3 +8,5 @@ router
   .post(controller.createCategory)
   .put(controller.updateCategory)
   .delete(controller.deleteCategory);
+
+module.exports = router;

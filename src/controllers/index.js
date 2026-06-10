@@ -13,4 +13,5 @@ function pageNotFound(req, res) {
 
 module.exports = {
   getHomePage,
+  pageNotFound,
 };
