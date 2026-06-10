@@ -13,6 +13,19 @@ async function createCategory(req, res) {
   res.json(newCategory);
 }
 
+async function updateCategory(req, res) {
+  const { id, name } = req.body;
+  let category = null;
+
+  try {
+    category = await db.putUpdateCategory(id, name);
+  } catch (err) {
+    throw new Error("Error encountered when updating category :" + err.message);
+  }
+
+  res.json(category);
+}
+
 async function deleteCategory(req, res) {
   const { id } = req.body;
   try {
