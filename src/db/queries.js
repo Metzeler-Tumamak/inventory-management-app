@@ -22,17 +22,19 @@ async function getProductByFilters(filters) {
 async function postCreateProduct(data) {
   const { name, category_id, available, minimum, maximum, price } = data;
   const newProduct = await pool.query(
-    "INSERT INTO products (name, category_id, available, minimum, maximum, price) VALUES($1, $2, $3, $4, $5, $6)",
+    "INSERT INTO products (name, category_id, available, minimum, maximum, price) VALUES($1, $2, $3, $4, $5, $6) RETURNING *",
     [name, category_id, available, minimum, maximum, price],
   );
+  return newProduct.rows[0];
 }
 
 async function putUpdateProduct(id, data) {
   const { name, category_id, available, minimum, maximum, price } = data;
   const updatedProduct = await pool.query(
-    "UPDATE products SET name=$2, category_id=$3, available=$4, minimum=$5, maximum=$6, price=$7 WHERE id=$1",
+    "UPDATE products SET name=$2, category_id=$3, available=$4, minimum=$5, maximum=$6, price=$7 WHERE id=$1 RETURNING *",
     [id, name, category_id, available, minimum, maximum, price],
   );
+  return updatedProduct.rows[0];
 }
 
 async function deleteProductById(id) {
@@ -48,11 +50,23 @@ async function getAllCategories() {
   return data.rows;
 }
 
-async function postCreateCategory(name) {
-  await pool.query("INSERT INTO categories (name) VALUES ($1)", [name]);
+async function putUpdateCategory(id, name) {
+  const data = await pool.query(
+    "UPDATE categories SET name=$1 WHERE id=$2 RETURNING *",
+    [name, id],
+  );
+  return data.rows[0];
 }
 
-async function deleteCateogryById(id) {
+async function postCreateCategory(name) {
+  const data = await pool.query(
+    "INSERT INTO categories (name) VALUES ($1) RETURNING *",
+    [name],
+  );
+  return data.rows[0];
+}
+
+async function deleteCategoryById(id) {
   await pool.query("DELETE FROM categories WHERE id=$1", [id]);
 }
 
@@ -64,6 +78,8 @@ module.exports = {
   putUpdateProduct,
   deleteProductById,
   deleteBulkProducts,
+  getAllCategories,
   postCreateCategory,
-  deleteCateogryById,
+  putUpdateCategory,
+  deleteCategoryById,
 };

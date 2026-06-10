@@ -2,10 +2,8 @@ const { Router } = require("express");
 const controller = require("../controllers/index");
 const router = Router();
 
-router.use("/", controller.getHomePage);
+router.get("/", controller.getHomePage);
 
-router.use((req, res) => {
-  res.status(404).render("404");
-});
+router.use(controller.pageNotFound);
 
 module.exports = router;
