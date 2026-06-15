@@ -14,22 +14,26 @@
   </head>
   <body>
     <header>
-      <h1>Inventory</h1>
-      <div class="search-bar">
-        <i class="search-icon" data-lucide="search"></i>
-        <input
-          type="text"
-          placeholder="Search"
-        />
+      <div>
+        <h1>Inventory</h1>
+        <div class="header-controls">
+          <div class="search-bar">
+            <i class="search-icon" data-lucide="search"></i>
+            <input
+              type="text"
+              placeholder="Search"
+            />
+          </div>
+          <button
+            class="btn add-btn"
+            type="button"
+          >
+            <i data-lucide="plus"></i>
+          </button>
+        </div>
       </div>
-      <button
-        class="btn add-btn"
-        type="button"
-      >
-        <i data-lucide="plus"></i>
-      </button>
     </header>
-    <main>
+    <main class="content">
       <div class="btns-wrapper">
         <button class="filter-btn" type="button">Filters</button> 
         <button class="share-btn"

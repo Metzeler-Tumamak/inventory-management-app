@@ -13,7 +13,7 @@
 
   --primary-fg: #000000;
   --category-item-fg: #ffffff;
-  --h1-fg: #273c59;
+  --h1-fg: #ffffff;
   --add-btn-fg: #2ef2aa;
   --secondary-fg: #1cad8e;
   --categories-item-fg: #0f2a49;
@@ -45,35 +45,42 @@ button {
 }
 
 body {
-  max-width: 1240px;
   min-height: 100vh;
   margin: 0 auto;
-  padding: 20px;
+}
+
+.content {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 16px;
 }
 
 header {
-  display: grid;
-  grid-template-columns: 1fr min-content;
-  grid-template-rows: 1fr min-content;
-
-  row-gap: 8px;
+  background-color: var(--secondary-bg);
   margin-bottom: 24px;
-  padding-bottom: 8px;
-  border-bottom: 2px solid var(--light-border);
+}
+
+header > div {
+  max-width: 1240px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  margin: 0 auto;
 }
 
 h1 {
   color: var(--h1-fg);
   font-size: var(--step-3);
-  grid-column: 1 / -1;
-  grid-row: 1 / 2;
+}
+
+.header-controls {
+  width: 100%;
+  display: flex;
 }
 
 .search-bar {
-  grid-column: 1 / 2;
-  grid-template-rows: 2 /3;
   width: 100%;
-  max-width: 350px;
   background-color: var(--search-bar-bg);
   padding: 8px 12px;
   border-radius: 5px;
@@ -100,10 +107,8 @@ h1 {
 }
 
 .add-btn {
-  grid-column: 2 / 3;
-  grid-row: 2 / 3;
   border: none;
-  background-color: var(--primary-bg);
+  background-color: transparent;
   margin-left: 8px;
   color: var(--add-btn-fg);
 }
@@ -142,7 +147,6 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 24px;
   padding-left: 12px;
 }
 
@@ -191,6 +195,7 @@ h1 {
 .products-wrapper {
   position: relative;
   overflow-x: auto;
+  margin-top: 24px;
 }
 
 /* Modern Standard Rules (Firefox / Core CSS) */
@@ -266,4 +271,32 @@ td {
   box-shadow:
     inset -4px 0 0 0 var(--dark-gray-border),
     inset 0px -2px 0 0 var(--gray-border);
+}
+
+tbody .sticky-col {
+  font-weight: normal;
+}
+
+@media (min-width: 414px) {
+  header > div {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  h1 {
+    width: 100%;
+  }
+
+  .header-controls {
+    justify-content: space-between;
+  }
+
+  .search-bar {
+    max-width: 300px;
+  }
+
+  .add-btn {
+    margin: 0;
+  }
 }
