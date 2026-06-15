@@ -1,0 +1,269 @@
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --search-bar-bg: #ececec;
+  --primary-bg: #ffffff;
+  --secondary-bg: #072540;
+
+  --primary-fg: #000000;
+  --category-item-fg: #ffffff;
+  --h1-fg: #273c59;
+  --add-btn-fg: #2ef2aa;
+  --secondary-fg: #1cad8e;
+  --categories-item-fg: #0f2a49;
+
+  --light-gray-border: rgba(0, 0, 0, 5%);
+  --gray-border: rgba(0, 0, 0, 10%);
+  --dark-gray-border: rgba(0, 0, 0, 30%);
+  /* @link https://utopia.fyi/type/calculator?c=320,18,1.2,1240,20,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+  --step--2: clamp(0.7813rem, 0.7747rem + 0.0326vw, 0.8rem);
+  --step--1: clamp(0.9375rem, 0.9158rem + 0.1087vw, 1rem);
+  --step-0: clamp(1.125rem, 1.0815rem + 0.2174vw, 1.25rem);
+  --step-1: clamp(1.35rem, 1.2761rem + 0.3696vw, 1.5625rem);
+  --step-2: clamp(1.62rem, 1.5041rem + 0.5793vw, 1.9531rem);
+  --step-3: clamp(1.944rem, 1.771rem + 0.8651vw, 2.4414rem);
+  --step-4: clamp(2.3328rem, 2.0827rem + 1.2504vw, 3.0518rem);
+  --step-5: clamp(2.7994rem, 2.4462rem + 1.7658vw, 3.8147rem);
+}
+
+.lucide {
+  stroke-width: 3px;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+body {
+  max-width: 1240px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header {
+  display: grid;
+  grid-template-columns: 1fr min-content;
+  grid-template-rows: 1fr min-content;
+
+  row-gap: 8px;
+  margin-bottom: 24px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--light-border);
+}
+
+h1 {
+  color: var(--h1-fg);
+  font-size: var(--step-3);
+  grid-column: 1 / -1;
+  grid-row: 1 / 2;
+}
+
+.search-bar {
+  grid-column: 1 / 2;
+  grid-template-rows: 2 /3;
+  width: 100%;
+  max-width: 350px;
+  background-color: var(--search-bar-bg);
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-size: var(--step--1);
+}
+
+.search-bar:focus-within {
+  border: 1px solid;
+}
+
+.search-icon {
+  width: 1.1em;
+  height: 1.1em;
+  vertical-align: middle;
+}
+
+.search-bar input {
+  background-color: inherit;
+  outline: none;
+  border: none;
+  font-size: 1em;
+  vertical-align: middle;
+  margin-left: 4px;
+}
+
+.add-btn {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  border: none;
+  background-color: var(--primary-bg);
+  margin-left: 8px;
+  color: var(--add-btn-fg);
+}
+
+.add-btn [data-lucide] {
+  width: var(--step-1);
+  height: var(--step-1);
+}
+
+.btns-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.btns-wrapper > * {
+  border: none;
+  background-color: var(--primary-bg);
+}
+
+.filter-btn {
+  flex-grow: 1;
+  text-align: left;
+  font-size: var(--step--1);
+  color: var(--secondary-fg);
+}
+
+.btns-wrapper [data-lucide] {
+  width: var(--step--1);
+  height: var(--step--1);
+  margin-left: 8px;
+  color: var(--secondary-fg);
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+  padding-left: 12px;
+}
+
+.hidden {
+  display: none;
+}
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.category-item {
+  font-size: var(--step--1);
+  padding: 5px 15px;
+  border-radius: 999px;
+  color: var(--primary-fg);
+}
+
+.category-item:first-child {
+  background-color: var(--secondary-fg);
+  /* background-color: #c2f213; */
+  color: var(--category-item-fg);
+}
+
+#sort-select {
+  border: none;
+  text-decoration-line: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--secondary-fg);
+}
+
+.sort button {
+  border: none;
+  background: var(--primary-bg);
+  font-size: var(--step--1);
+}
+
+.sort [data-lucide] {
+  width: 1.1em;
+  height: 1.1em;
+  color: var(--secondary-fg);
+}
+
+.products-wrapper {
+  position: relative;
+  overflow-x: auto;
+}
+
+/* Modern Standard Rules (Firefox / Core CSS) */
+.products-wrapper {
+  scrollbar-color: transparent transparent; /* Thumb, Track */
+}
+
+/* Legacy WebKit Rules (Chrome, Safari, Edge, Opera) */
+.products-wrapper::-webkit-scrollbar {
+  width: 8px; /* Sets width for vertical scrollbar */
+  height: 8px; /* Sets height for horizontal scrollbar */
+  background: transparent; /* Makes entire scrollbar structure transparent */
+}
+
+.products-wrapper::-webkit-scrollbar-track {
+  background: transparent; /* Makes the track completely see-through */
+}
+
+.products-wrapper::-webkit-scrollbar-thumb {
+  background: transparent; /* Makes the moving thumb completely see-through */
+}
+
+.products {
+  width: 1240px;
+  table-layout: fixed;
+  border-collapse: separate;
+  border-top: 2px solid var(--dark-gray-border);
+  border-spacing: 0px;
+}
+
+th,
+td {
+  box-shadow: inset 0px -2px 0 0 var(--gray-border);
+  padding: 8px;
+}
+
+.num-cell {
+  text-align: right;
+  width: 100px;
+}
+
+.text-cell {
+  text-align: left;
+}
+
+.action-col {
+  width: 100px;
+}
+
+.action-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.action-cell button {
+  background-color: var(--primary-bg);
+  border: none;
+}
+
+.action-cell svg {
+  width: var(--step-0);
+  height: var(--step-0);
+}
+
+.sticky-col {
+  width: 45vw;
+  max-width: 400px;
+  position: sticky;
+  left: 0;
+  background-color: var(--primary-bg);
+  box-shadow:
+    inset -4px 0 0 0 var(--dark-gray-border),
+    inset 0px -2px 0 0 var(--gray-border);
+}

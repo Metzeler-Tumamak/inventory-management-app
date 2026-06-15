@@ -6,9 +6,105 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
-    <title>Document</title>
+    <title>Inventory Management App</title>
+    <link
+      rel="stylesheet"
+      href="/styles.css"
+    />
   </head>
   <body>
-    Hello World
+    <header>
+      <h1>Inventory</h1>
+      <div class="search-bar">
+        <i class="search-icon" data-lucide="search"></i>
+        <input
+          type="text"
+          placeholder="Search"
+        />
+      </div>
+      <button
+        class="btn add-btn"
+        type="button"
+      >
+        <i data-lucide="plus"></i>
+      </button>
+    </header>
+    <main>
+      <div class="btns-wrapper">
+        <button class="filter-btn" type="button">Filters</button> 
+        <button class="share-btn"
+        type="button">
+          <i data-lucide="share"></i>
+        </button>
+        <button type="button" class="share-btn">
+          <i data-lucide="settings"></i>
+        </button>
+      </div>
+      
+      <div class="filters hidden">
+        <ul class="categories">
+          <% categories.forEach(({id, name}) => { %>
+            <li class="category-item"><%= name %></li>
+          <% }); %>
+        </ul>
+        <div class="sort">
+          <label for="sort-select">Sort: </label>
+          <select id="sort-select">
+            <option value="name">Name</option>
+            <option value="available">Available</option>
+          </select>
+          <button type="button">
+            <i data-lucide="arrow-up-narrow-wide"></i>
+            <i data-lucide="arrow-down-wide-narrow"></i>
+          </button>
+        </div>
+      </div>
+      <div class="products-wrapper">
+        <table class="products">
+          <thead>
+            <tr>
+              <th scope="col" class="text-cell sticky-col">Name</th>
+              <th scope="col" class="text-cell">Category</th>
+              <th scope="col" class="num-cell">Available</th>
+              <th scope="col" class="num-cell">Minimum</th>
+              <th scope="col" class="num-cell">Maximum</th>
+              <th scope="col" class="num-cell">Price</th>
+              <th scope="col" class="action-col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% products.forEach(product => { %>
+              <% const {id, name, category_id, available, minimum, maximum, price} = product %> 
+                <tr data-id="<%= id %>">
+                  <th scope="row" class="sticky-col text-cell"><%= name %></th>
+                  <td class="text-cell"><%= category_id %></td>
+                  <td class="num-cell"><%= available %></td>
+                  <td class="num-cell"><%= minimum %></td>
+                  <td class="num-cell"><%= maximum %></td>
+                  <td class="num-cell">$<%= price %></td>
+                  <td class="action-cell">
+                    <button type="button" class="edit-product-btn"> 
+                      <i data-lucide="pencil"></i>
+                    </button>
+                    <button type="button" class="delete-product-btn">
+                      <i data-lucide="trash-2"></i>
+                    </button>
+                  </td>
+                </tr>
+              <% }); %>
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+
+    <script src="https://unpkg.com/lucide@1.17.0/dist/umd/lucide.js"></script>
+
+    <script>
+      const products = <%- JSON.stringify(locals.products) %>;
+      const categories = <%- JSON.stringify(locals.categories) %>;
+    </script>
+
+    <script src="/index.js"></script>
   </body>
 </html>
