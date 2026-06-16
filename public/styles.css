@@ -88,7 +88,7 @@ h1 {
 }
 
 .search-bar:focus-within {
-  border: 1px solid;
+  outline: 3px solid green;
 }
 
 .search-icon {
@@ -224,12 +224,18 @@ h1 {
   border-collapse: separate;
   border-top: 2px solid var(--dark-gray-border);
   border-spacing: 0px;
+  font-size: var(--step--1);
 }
 
 th,
 td {
   box-shadow: inset 0px -2px 0 0 var(--gray-border);
   padding: 8px;
+}
+
+tbody > tr:hover td,
+tbody > tr:hover th {
+  background-color: orange;
 }
 
 .num-cell {
@@ -253,7 +259,7 @@ td {
 }
 
 .action-cell button {
-  background-color: var(--primary-bg);
+  background-color: transparent;
   border: none;
 }
 
@@ -290,6 +296,7 @@ tbody .sticky-col {
 
   .header-controls {
     justify-content: space-between;
+    align-items: center;
   }
 
   .search-bar {
