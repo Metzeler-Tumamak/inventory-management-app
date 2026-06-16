@@ -13,6 +13,7 @@
     />
   </head>
   <body>
+    
     <dialog class="add-product-modal"   >
       <p class="form-header">Add new product</p>
       <form method="POST" action="/products" class="add-product-form">
@@ -38,11 +39,12 @@
           <label for="minimum">Minimum</label>
           <input id="minimum"
           name="minimum"
-          type="text">
+          type="tel">
         </div>
         <div class="field">
           <label for="maximum">Maximum</label>
-          <input type="tel" id="maximum" name="maximum">
+          <input type="number"  id="maximum" name="maximum"
+          >
         </div>
         <div class="field">
           <label for="price">Price</label>
@@ -53,6 +55,9 @@
         class="cancel-btn" type="button">Cancel</button>
         </div>
       </form>
+      <div class="loader-wrapper hidden">
+        <span class="loader"></span>
+      </div>
     </dialog>
     <header>
       <div>

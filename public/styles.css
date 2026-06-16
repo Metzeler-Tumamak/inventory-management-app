@@ -21,6 +21,7 @@
   --light-gray-border: rgba(0, 0, 0, 5%);
   --gray-border: rgba(0, 0, 0, 10%);
   --dark-gray-border: rgba(0, 0, 0, 30%);
+  --loader: rgba(0, 0, 0, 30%);
   /* @link https://utopia.fyi/type/calculator?c=320,18,1.2,1240,20,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
   --step--2: clamp(0.7813rem, 0.7747rem + 0.0326vw, 0.8rem);
   --step--1: clamp(0.9375rem, 0.9158rem + 0.1087vw, 1rem);
@@ -115,6 +116,116 @@ body {
 .cancel-btn {
   margin-left: 4px;
   background-color: var(--cancel-btn-bg);
+}
+
+.loader-wrapper {
+  background-color: var(--primary-bg);
+}
+
+.loader {
+  margin: 0 auto;
+  display: block;
+  color: var(--loader);
+  font-size: 10px;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  position: relative;
+  text-indent: -9999em;
+  animation: mulShdSpin 1.3s infinite linear;
+  transform: translateZ(0);
+}
+
+@keyframes mulShdSpin {
+  0%,
+  100% {
+    box-shadow:
+      0 -3em 0 0.2em,
+      2em -2em 0 0em,
+      3em 0 0 -1em,
+      2em 2em 0 -1em,
+      0 3em 0 -1em,
+      -2em 2em 0 -1em,
+      -3em 0 0 -1em,
+      -2em -2em 0 0;
+  }
+  12.5% {
+    box-shadow:
+      0 -3em 0 0,
+      2em -2em 0 0.2em,
+      3em 0 0 0,
+      2em 2em 0 -1em,
+      0 3em 0 -1em,
+      -2em 2em 0 -1em,
+      -3em 0 0 -1em,
+      -2em -2em 0 -1em;
+  }
+  25% {
+    box-shadow:
+      0 -3em 0 -0.5em,
+      2em -2em 0 0,
+      3em 0 0 0.2em,
+      2em 2em 0 0,
+      0 3em 0 -1em,
+      -2em 2em 0 -1em,
+      -3em 0 0 -1em,
+      -2em -2em 0 -1em;
+  }
+  37.5% {
+    box-shadow:
+      0 -3em 0 -1em,
+      2em -2em 0 -1em,
+      3em 0em 0 0,
+      2em 2em 0 0.2em,
+      0 3em 0 0em,
+      -2em 2em 0 -1em,
+      -3em 0em 0 -1em,
+      -2em -2em 0 -1em;
+  }
+  50% {
+    box-shadow:
+      0 -3em 0 -1em,
+      2em -2em 0 -1em,
+      3em 0 0 -1em,
+      2em 2em 0 0em,
+      0 3em 0 0.2em,
+      -2em 2em 0 0,
+      -3em 0em 0 -1em,
+      -2em -2em 0 -1em;
+  }
+  62.5% {
+    box-shadow:
+      0 -3em 0 -1em,
+      2em -2em 0 -1em,
+      3em 0 0 -1em,
+      2em 2em 0 -1em,
+      0 3em 0 0,
+      -2em 2em 0 0.2em,
+      -3em 0 0 0,
+      -2em -2em 0 -1em;
+  }
+  75% {
+    box-shadow:
+      0em -3em 0 -1em,
+      2em -2em 0 -1em,
+      3em 0em 0 -1em,
+      2em 2em 0 -1em,
+      0 3em 0 -1em,
+      -2em 2em 0 0,
+      -3em 0em 0 0.2em,
+      -2em -2em 0 0;
+  }
+  87.5% {
+    box-shadow:
+      0em -3em 0 0,
+      2em -2em 0 -1em,
+      3em 0 0 -1em,
+      2em 2em 0 -1em,
+      0 3em 0 -1em,
+      -2em 2em 0 0,
+      -3em 0em 0 0,
+      -2em -2em 0 0.2em;
+  }
 }
 
 header {
