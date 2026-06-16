@@ -24,12 +24,24 @@
               placeholder="Search"
             />
           </div>
-          <button
-            class="btn add-btn"
-            type="button"
-          >
-            <i data-lucide="plus"></i>
-          </button>
+          <div class="add-menu">
+            <button
+              class="btn add-btn"
+              type="button"
+            >
+              <i data-lucide="plus"></i>
+            </button>
+            <ul class="add-dropdown hidden">
+              <li>
+                <button type="button"
+                class="add-product-btn">Add product</button>
+              </li>
+              <li>
+                <button type="button" class="add-category-btn"
+                >Add category</button>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </header>
@@ -105,8 +117,8 @@
     <script src="https://unpkg.com/lucide@1.17.0/dist/umd/lucide.js"></script>
 
     <script>
-      const products = <%- JSON.stringify(locals.products) %>;
-      const categories = <%- JSON.stringify(locals.categories) %>;
+      let products = <%- JSON.stringify(locals.products) %>;
+      let categories = <%- JSON.stringify(locals.categories) %>;
     </script>
 
     <script src="/index.js"></script>

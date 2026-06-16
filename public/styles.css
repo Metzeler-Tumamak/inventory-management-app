@@ -106,6 +106,10 @@ h1 {
   margin-left: 4px;
 }
 
+.add-menu {
+  position: relative;
+}
+
 .add-btn {
   border: none;
   background-color: transparent;
@@ -116,6 +120,29 @@ h1 {
 .add-btn [data-lucide] {
   width: var(--step-1);
   height: var(--step-1);
+}
+
+.add-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: var(--search-bar-bg);
+  border: 1px solid var(--secondary-bg);
+  border-radius: 5px;
+}
+
+.add-dropdown button {
+  width: 100%;
+  font-size: var(--step--1);
+  background-color: transparent;
+  border: none;
+  padding: 12px 20px;
+  text-wrap: nowrap;
+}
+
+.add-dropdown button:hover {
+  background-color: var(--secondary-bg);
+  color: var(--category-item-fg);
 }
 
 .btns-wrapper {
