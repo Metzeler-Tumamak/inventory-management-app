@@ -12,12 +12,12 @@
   --secondary-bg: #072540;
 
   --primary-fg: #000000;
-  --category-item-fg: #ffffff;
-  --h1-fg: #ffffff;
+  --white-fg: #ffffff;
   --add-btn-fg: #2ef2aa;
   --secondary-fg: #1cad8e;
   --categories-item-fg: #0f2a49;
-
+  --submit-btn-bg: #1aa372;
+  --cancel-btn-bg: #d4594e;
   --light-gray-border: rgba(0, 0, 0, 5%);
   --gray-border: rgba(0, 0, 0, 10%);
   --dark-gray-border: rgba(0, 0, 0, 30%);
@@ -55,6 +55,68 @@ body {
   padding: 0 16px;
 }
 
+.add-product-modal {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 0;
+  width: 100%;
+  max-width: 400px;
+  padding: 16px;
+  background-color: transparent;
+}
+
+.add-product-form {
+  background-color: var(--primary-bg);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-size: var(--step--1);
+  padding: 20px;
+}
+
+.form-header {
+  border-bottom: 2px solid var(--light-gray-border);
+  font-size: var(--step-0);
+  padding: 20px;
+  background-color: var(--secondary-bg);
+  color: var(--white-fg);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.field label {
+  font-size: var(--step-0);
+}
+
+.field input,
+.field select {
+  height: 32px;
+  padding-left: 8px;
+  font-size: inherit;
+}
+
+.form-btns * {
+  padding: 8px 24px;
+  border-radius: 3px;
+  border: 0;
+  color: var(--white-fg);
+  font-size: inherit;
+}
+
+.submit-btn {
+  background-color: var(--submit-btn-bg);
+}
+
+.cancel-btn {
+  margin-left: 4px;
+  background-color: var(--cancel-btn-bg);
+}
+
 header {
   background-color: var(--secondary-bg);
   margin-bottom: 24px;
@@ -70,7 +132,7 @@ header > div {
 }
 
 h1 {
-  color: var(--h1-fg);
+  color: var(--white-fg);
   font-size: var(--step-3);
 }
 
@@ -142,7 +204,7 @@ h1 {
 
 .add-dropdown button:hover {
   background-color: var(--secondary-bg);
-  color: var(--category-item-fg);
+  color: var(--white-fg);
 }
 
 .btns-wrapper {
@@ -197,7 +259,7 @@ h1 {
 .category-item:first-child {
   background-color: var(--secondary-fg);
   /* background-color: #c2f213; */
-  color: var(--category-item-fg);
+  color: var(--white-fg);
 }
 
 #sort-select {
@@ -332,5 +394,9 @@ tbody .sticky-col {
 
   .add-btn {
     margin: 0;
+  }
+
+  .add-product-form {
+    padding: 32px;
   }
 }
