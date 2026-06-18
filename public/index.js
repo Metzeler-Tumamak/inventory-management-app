@@ -26,6 +26,7 @@ addProductBtn.addEventListener("click", (e) => {
 });
 
 modalContent.addEventListener("submit", async (e) => {
+  modalContent.classList.toggle("hidden");
   showLoader();
   e.preventDefault();
   e.stopPropagation();
@@ -52,5 +53,5 @@ modalContent.addEventListener("submit", async (e) => {
   window.location.href = await response.url;
 });
 
-const clickEvent = new Event("click");
-addProductBtn.dispatchEvent(clickEvent);
+// const clickEvent = new Event("click");
+// addProductBtn.dispatchEvent(clickEvent);
