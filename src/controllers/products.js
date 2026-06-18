@@ -3,14 +3,14 @@ const db = require("../db/queries");
 async function createProduct(req, res) {
   let newProduct = null;
   try {
-    newProduct = await db.postCreateProduct(req.body);
+    await db.postCreateProduct(req.body);
   } catch (err) {
     throw new Error(
       "Issue encountered when creating new product: " + err.message,
     );
   }
 
-  res.json(newProduct);
+  res.redirect("/");
 }
 
 async function updateProduct(req, res) {

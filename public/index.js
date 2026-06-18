@@ -1,8 +1,10 @@
 lucide.createIcons();
 
-console.log(products, categories);
-
 const loader = document.querySelector(".loader-wrapper");
+
+function showLoader() {
+  loader.classList.toggle("hidden");
+}
 
 const addMenuBtn = document.querySelector(".add-menu");
 const addDropdown = document.querySelector(".add-dropdown");
@@ -23,13 +25,31 @@ addProductBtn.addEventListener("click", (e) => {
   addDropdown.classList.toggle("hidden");
 });
 
-addProductForm.addEventListener("submit", (e) => {
+modalContent.addEventListener("submit", async (e) => {
+  showLoader();
   e.preventDefault();
-  for (const [key, value] of new FormData(e.target)) {
-    console.log(key, value);
-  }
-  modalContent.classList.toggle("hidden");
-  loader.classList.toggle("hidden");
+  e.stopPropagation();
+  const formData = new FormData(e.target);
+  const reqBody = {
+    name: formData.get("name").trim(),
+    category_id: formData.get("category_id"),
+    available: Number(formData.get("available")),
+    minimum: Number(formData.get("minimum")),
+    maximum: Number(formData.get("maximum")),
+    price: Number(formData.get("price")),
+  };
+
+  const url = e.target.action;
+
+  const response = await fetch(url, {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    method: "POST",
+    body: new URLSearchParams(reqBody),
+  });
+
+  window.location.href = await response.url;
 });
 
 const clickEvent = new Event("click");
