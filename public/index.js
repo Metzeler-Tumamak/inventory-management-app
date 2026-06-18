@@ -68,7 +68,7 @@ modalContent.addEventListener("submit", async (e) => {
 });
 
 closeModalBtn.addEventListener("click", (e) => {
-  console.log("test");
+  modal.close();
 });
 
 // const clickEvent = new Event("click");
