@@ -1,3 +1,5 @@
+import { capitalize } from "./utils.js";
+
 lucide.createIcons();
 
 const loader = document.querySelector(".loader-wrapper");
@@ -13,15 +15,20 @@ addMenuBtn.addEventListener("click", (event) => {
   addDropdown.classList.toggle("hidden");
 });
 
-const addProductBtn = document.querySelector(".add-product-btn");
-const addProductModal = document.querySelector(".add-product-modal");
-const addProductForm = document.querySelector(".add-product-form");
+const modal = document.querySelector(".modal");
+const modalFormHeader = document.querySelector(".modal-content .form-header");
 const modalContent = document.querySelector(".modal-content");
 
-addProductBtn.addEventListener("click", (e) => {
-  addProductModal.showModal();
+addDropdown.addEventListener("click", (e) => {
+  const btnAction = e.target.dataset.action;
+  const formHeaderText = capitalize(btnAction.replaceAll("-", " "));
+  modalFormHeader.textContent = formHeaderText;
+  modal.showModal();
   e.stopPropagation();
-  addProductForm.classList.toggle("hidden");
+  const activeForm = document.querySelector(
+    `form[data-form-label="${btnAction}"]`,
+  );
+  activeForm.classList.toggle("hidden");
   addDropdown.classList.toggle("hidden");
 });
 

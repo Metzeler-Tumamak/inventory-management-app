@@ -14,11 +14,11 @@
   </head>
   <body>
     
-    <dialog class="add-product-modal"   >
+    <dialog class="modal"   >
       
       <div class="modal-content">
-        <p class="form-header">Add new product</p>
-        <form method="POST" action="/products" class="add-product-form hidden">
+        <p class="form-header">Form Header</p>
+        <form method="POST" action="/products" class="modal-form hidden" data-form-label="add-product">
         
           <div class="field">
             <label for="name">Name</label>
@@ -83,11 +83,12 @@
             </button>
             <ul class="add-dropdown hidden">
               <li>
-                <button type="button"
-                class="add-product-btn">Add product</button>
+                <button type="button" data-action="add-product"
+              >Add product</button>
               </li>
               <li>
-                <button type="button" class="add-category-btn"
+                <button type="button"
+                data-action="add-category"
                 >Add category</button>
               </li>
             </ul>
@@ -171,6 +172,6 @@
       let categories = <%- JSON.stringify(locals.categories) %>;
     </script>
 
-    <script src="/index.js"></script>
+    <script type="module" src="/index.js"></script>
   </body>
 </html>

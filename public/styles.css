@@ -56,7 +56,7 @@ body {
   padding: 0 16px;
 }
 
-.add-product-modal {
+.modal {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -67,7 +67,7 @@ body {
   background-color: transparent;
 }
 
-.add-product-form {
+.modal-form {
   background-color: var(--primary-bg);
   display: flex;
   flex-direction: column;
@@ -443,7 +443,7 @@ tbody .sticky-col {
     margin: 0;
   }
 
-  .add-product-form {
+  .modal-form {
     padding: 32px;
   }
 }
