@@ -67,19 +67,27 @@ body {
   background-color: transparent;
 }
 
-.modal-form {
+.modal-content {
+  --empty-space: 20px;
+
   background-color: var(--primary-bg);
+}
+
+.modal-form {
+  --row-space: 16px;
+
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--row-space);
   font-size: var(--step--1);
-  padding: 20px;
+  padding: var(--empty-space);
+  padding-bottom: var(--row-space);
 }
 
 .form-header {
   border-bottom: 2px solid var(--light-gray-border);
   font-size: var(--step-0);
-  padding: 20px;
+  padding: 20px var(--empty-space);
   background-color: var(--secondary-bg);
   color: var(--white-fg);
 }
@@ -101,7 +109,12 @@ body {
   font-size: inherit;
 }
 
-.form-btns * {
+.modal-btns {
+  padding: var(--empty-space);
+  padding-top: 0;
+}
+
+.modal-btns * {
   padding: 8px 24px;
   border-radius: 3px;
   border: 0;
@@ -443,7 +456,12 @@ tbody .sticky-col {
     margin: 0;
   }
 
-  .modal-form {
-    padding: 32px;
+  .modal-content {
+    --empty-space: 32px;
+  }
+
+  .form-header {
+    padding-top: 24px;
+    padding-bottom: 24px;
   }
 }

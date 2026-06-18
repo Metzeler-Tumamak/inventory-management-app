@@ -2,15 +2,14 @@ const db = require("../db/queries");
 
 async function createCategory(req, res) {
   const { name } = req.body;
-  let newCategory = null;
 
   try {
-    newCategory = await db.postCreateCategory(name);
+    await db.postCreateCategory(name);
   } catch (err) {
     throw new Error("Error encountered when creating category: " + err.message);
   }
 
-  res.json(newCategory);
+  res.redirect("/");
 }
 
 async function updateCategory(req, res) {

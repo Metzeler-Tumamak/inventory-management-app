@@ -4,32 +4,39 @@ lucide.createIcons();
 
 const loader = document.querySelector(".loader-wrapper");
 
+const addMenuBtn = document.querySelector(".add-menu");
+const addDropdown = document.querySelector(".add-dropdown");
+const modal = document.querySelector(".modal");
+const modalFormHeader = document.querySelector(".modal-content .form-header");
+const modalContent = document.querySelector(".modal-content");
+const submitModalFormBtn = document.querySelector(".modal-btns .submit-btn");
+const closeModalBtn = document.querySelector(".modal-btns .cancel-btn");
+
 function showLoader() {
   loader.classList.toggle("hidden");
 }
-
-const addMenuBtn = document.querySelector(".add-menu");
-const addDropdown = document.querySelector(".add-dropdown");
 
 addMenuBtn.addEventListener("click", (event) => {
   addDropdown.classList.toggle("hidden");
 });
 
-const modal = document.querySelector(".modal");
-const modalFormHeader = document.querySelector(".modal-content .form-header");
-const modalContent = document.querySelector(".modal-content");
-
 addDropdown.addEventListener("click", (e) => {
+  e.stopPropagation();
   const btnAction = e.target.dataset.action;
   const formHeaderText = capitalize(btnAction.replaceAll("-", " "));
   modalFormHeader.textContent = formHeaderText;
+  const formId = `form-${btnAction}`;
+  submitModalFormBtn.setAttribute("form", formId);
   modal.showModal();
-  e.stopPropagation();
-  const activeForm = document.querySelector(
-    `form[data-form-label="${btnAction}"]`,
-  );
+  const activeForm = document.querySelector(`#${formId}`);
   activeForm.classList.toggle("hidden");
   addDropdown.classList.toggle("hidden");
+});
+
+modal.addEventListener("close", (e) => {
+  const activeForm = document.querySelector(".modal-form:not(.hidden)");
+  activeForm.reset();
+  activeForm.classList.toggle("hidden");
 });
 
 modalContent.addEventListener("submit", async (e) => {
@@ -58,6 +65,10 @@ modalContent.addEventListener("submit", async (e) => {
   });
 
   window.location.href = await response.url;
+});
+
+closeModalBtn.addEventListener("click", (e) => {
+  console.log("test");
 });
 
 // const clickEvent = new Event("click");
