@@ -1,7 +1,9 @@
 const pool = require("./pool");
 
 async function getAllProducts() {
-  const data = await pool.query("SELECT * FROM products");
+  const data = await pool.query(
+    "SELECT p.id, p.name, c.name AS category, available, minimum, maximum, price FROM products AS p LEFT JOIN categories AS c ON p.category_id = c.id",
+  );
   return data.rows;
 }
 
