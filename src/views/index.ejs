@@ -117,25 +117,54 @@
           <i data-lucide="settings"></i>
         </button>
       </div>
-      
-      <div class="filters hidden">
-        <ul class="categories">
+      <form method="GET" action="/" class="
+       filters hidden">
+        <fieldset class="categories">
+          <div class="category-item">
+            <label><input class="hidden" 
+              name="category_id" type="radio" value=""
+              <%= filters.category_id.length === 0 &&  "checked" %>
+              >All</label>
+          </div>
           <% categories.forEach(({id, name}) => { %>
-            <li class="category-item"><%= name %></li>
+            <div class="category-item">
+            <label><input class="hidden" name="category_id" type="radio" value="<%= id %>"
+                 <%= filters.category_id === id &&  "checked" %>
+              ><%= name %></label>
+          </div>
           <% }); %>
-        </ul>
+        </fieldset>
         <div class="sort">
           <label for="sort-select">Sort: </label>
-          <select id="sort-select">
-            <option value="name">Name</option>
-            <option value="available">Available</option>
+          <select id="sort-select" name="sort">
+            <option value="name" 
+            <%= filters.sort === "name" && "selected" %>
+            >Name</option>
+            <option value="available"
+            <%= filters.sort === "available" && "selected" %>
+            >Available</option>
           </select>
-          <button type="button">
-            <i data-lucide="arrow-up-narrow-wide"></i>
-            <i data-lucide="arrow-down-wide-narrow"></i>
-          </button>
+
+          <fieldset class="sort-order">
+           
+            <label><i data-lucide="arrow-up-narrow-wide"></i>
+           <input class="hidden" type="radio" name="order" value="ASC" 
+           <%= filters.order === "ASC" &&  "checked" %>
+           >
+            </label>
+            
+            <label><i data-lucide="arrow-down-narrow-wide"></i>
+              <input class="hidden" type="radio" name="order" value="DESC"
+              <%= filters.order === "DESC" &&  "checked" %>
+              >
+            </label>
+            
+          </fieldset>
         </div>
-      </div>
+        <div class="filter-form-controls"><button type="submit" disabled>Apply</button>
+        <button class="reset-filter-btn" type="button">Reset</button>
+        </div>
+      </form>
       <div class="products-wrapper">
         <table class="products">
           <thead>
@@ -151,10 +180,10 @@
           </thead>
           <tbody>
             <% products.forEach(product => { %>
-              <% const {id, name, category_id, available, minimum, maximum, price} = product %> 
+              <% const {id, name, category, available, minimum, maximum, price} = product %> 
                 <tr data-id="<%= id %>">
                   <th scope="row" class="sticky-col text-cell"><%= name %></th>
-                  <td class="text-cell"><%= category_id %></td>
+                  <td class="text-cell"><%= category %></td>
                   <td class="num-cell"><%= available %></td>
                   <td class="num-cell"><%= minimum %></td>
                   <td class="num-cell"><%= maximum %></td>
@@ -178,8 +207,10 @@
     <script src="https://unpkg.com/lucide@1.17.0/dist/umd/lucide.js"></script>
 
     <script>
-      let products = <%- JSON.stringify(locals.products) %>;
-      let categories = <%- JSON.stringify(locals.categories) %>;
+      const locals = {
+        products: <%- JSON.stringify(locals.products) %>,
+        categories: <%- JSON.stringify(locals.categories) %>
+      }
     </script>
 
     <script type="module" src="/index.js"></script>

@@ -11,6 +11,12 @@ const modalFormHeader = document.querySelector(".modal-content .form-header");
 const modalContent = document.querySelector(".modal-content");
 const submitModalFormBtn = document.querySelector(".modal-btns .submit-btn");
 const closeModalBtn = document.querySelector(".modal-btns .cancel-btn");
+const toggleFiltersBtn = document.querySelector(".filter-btn");
+const filters = document.querySelector(".filters");
+const applyFiltersBtn = document.querySelector(
+  `.filter-form-controls button[type="submit"]`,
+);
+const resetFiltersBtn = document.querySelector(".reset-filter-btn");
 
 function showLoader() {
   loader.classList.toggle("hidden");
@@ -71,5 +77,27 @@ closeModalBtn.addEventListener("click", (e) => {
   modal.close();
 });
 
-// const clickEvent = new Event("click");
-// addProductBtn.dispatchEvent(clickEvent);
+toggleFiltersBtn.addEventListener("click", (e) => {
+  filters.classList.toggle("hidden");
+});
+
+filters.addEventListener("change", (e) => {
+  applyFiltersBtn.removeAttribute("disabled");
+});
+
+resetFiltersBtn.addEventListener("click", (e) => {
+  const defaultCategory = document.querySelector(
+    `input[name="category_id"][value=""]`,
+  );
+  defaultCategory.click();
+
+  const defaultSort = document.querySelector(
+    `#sort-select option[value="name"]`,
+  );
+  defaultSort.selected = true;
+
+  const defaultOrder = document.querySelector(
+    `input[name="order"][value="ASC"]`,
+  );
+  defaultOrder.click();
+});

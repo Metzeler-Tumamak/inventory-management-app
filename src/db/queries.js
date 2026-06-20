@@ -16,7 +16,7 @@ async function getProductBySearch(name) {
 
 async function getProductByFilters(filters) {
   const { conditions, sort } = filters;
-  const sql = `SELECT * FROM products WHERE ${conditions} ORDER BY ${sort}`;
+  const sql = `SELECT p.id, p.name, c.name AS category, available, minimum, maximum, price FROM products AS p LEFT JOIN categories AS c ON p.category_id = c.id ${conditions} ${sort}`;
   const data = await pool.query(sql);
   return data.rows;
 }
