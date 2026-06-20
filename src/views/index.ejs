@@ -78,10 +78,14 @@
         <h1>Inventory</h1>
         <div class="header-controls">
           <div class="search-bar">
-            <i class="search-icon" data-lucide="search"></i>
+            <label for="search-input"><i class="search-icon" data-lucide="search"></i></label>
             <input
+              id="search-input"
               type="text"
               placeholder="Search"
+              name="name"
+              form="filter-form"
+              <%= filters.name.length ? `value=${filters.name}` : "" %>
             />
           </div>
           <div class="add-menu">
@@ -117,7 +121,7 @@
           <i data-lucide="settings"></i>
         </button>
       </div>
-      <form method="GET" action="/" class="
+      <form id="filter-form" method="GET" action="/" class="
        filters hidden">
         <fieldset class="categories">
           <div class="category-item">

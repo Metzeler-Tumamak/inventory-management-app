@@ -17,6 +17,7 @@ const applyFiltersBtn = document.querySelector(
   `.filter-form-controls button[type="submit"]`,
 );
 const resetFiltersBtn = document.querySelector(".reset-filter-btn");
+const searchInput = document.querySelector("#search-input");
 
 function showLoader() {
   loader.classList.toggle("hidden");
@@ -77,6 +78,12 @@ closeModalBtn.addEventListener("click", (e) => {
   modal.close();
 });
 
+searchInput.addEventListener("click", (e) => {
+  if (filters.classList.contains("hidden")) {
+    filters.classList.toggle("hidden");
+  }
+});
+
 toggleFiltersBtn.addEventListener("click", (e) => {
   filters.classList.toggle("hidden");
 });
@@ -100,4 +107,6 @@ resetFiltersBtn.addEventListener("click", (e) => {
     `input[name="order"][value="ASC"]`,
   );
   defaultOrder.click();
+
+  searchInput.value = "";
 });
