@@ -26,7 +26,7 @@ async function updateCategory(req, res) {
 }
 
 async function deleteCategory(req, res) {
-  const { id } = req.body;
+  const { id } = req.query;
   try {
     await db.deleteCategoryById(id);
   } catch (err) {
@@ -35,7 +35,8 @@ async function deleteCategory(req, res) {
     );
   }
 
-  res.status(200).end();
+  // res.status(200).end();
+  res.redirect("/");
 }
 
 module.exports = {

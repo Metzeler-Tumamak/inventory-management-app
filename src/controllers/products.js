@@ -27,7 +27,7 @@ async function updateProduct(req, res) {
 }
 
 async function deleteProduct(req, res) {
-  const { id } = req.body;
+  const { id } = req.query;
 
   try {
     await db.deleteProductById(id);
@@ -35,7 +35,7 @@ async function deleteProduct(req, res) {
     throw new Error("Error encountered when deleting product: " + err.message);
   }
 
-  res.status(200).end();
+  res.status(204).end();
 }
 
 module.exports = {

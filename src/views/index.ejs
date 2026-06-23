@@ -63,6 +63,12 @@
             <input id="name"  name="name" type="text">
           </div>
         </form>
+        <form class="modal-form hidden"
+        id="form-delete-product"
+        method="DELETE" action="/products">
+          <p>Are you sure you want to delete this product?</p>
+          <input name="id" type="text" class="hidden" >
+        </form>
         <div class="modal-btns"><button class="submit-btn" type="submit">Submit</button>
           <button
           class="cancel-btn" type="button">Cancel</button>
@@ -186,17 +192,17 @@
             <% products.forEach(product => { %>
               <% const {id, name, category, available, minimum, maximum, price} = product %> 
                 <tr data-id="<%= id %>">
-                  <th scope="row" class="sticky-col text-cell"><%= name %></th>
-                  <td class="text-cell"><%= category %></td>
-                  <td class="num-cell"><%= available %></td>
-                  <td class="num-cell"><%= minimum %></td>
-                  <td class="num-cell"><%= maximum %></td>
-                  <td class="num-cell">$<%= price %></td>
+                  <th scope="row" class="sticky-col text-cell" data-field="name"><%= name %></th>
+                  <td class="text-cell" data-field="category"><%= category %></td>
+                  <td class="num-cell" data-field="available"><%= available %></td>
+                  <td class="num-cell" data-field="minimum"><%= minimum %></td>
+                  <td class="num-cell" data-field="maximum"><%= maximum %></td>
+                  <td class="num-cell" data-field="price">$<%= price %></td>
                   <td class="action-cell">
-                    <button type="button" class="edit-product-btn"> 
+                    <button type="button" data-action="update-product"> 
                       <i data-lucide="pencil"></i>
                     </button>
-                    <button type="button" class="delete-product-btn">
+                    <button type="button" data-action="delete-product">
                       <i data-lucide="trash-2"></i>
                     </button>
                   </td>

@@ -38,6 +38,7 @@
 
 .lucide {
   stroke-width: 3px;
+  pointer-events: none;
 }
 
 ul {

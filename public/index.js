@@ -18,9 +18,15 @@ const applyFiltersBtn = document.querySelector(
 );
 const resetFiltersBtn = document.querySelector(".reset-filter-btn");
 const searchInput = document.querySelector("#search-input");
+const productsTable = document.querySelector(".products tbody");
+const deleteProductForm = document.querySelector("#form-delete-product");
 
 function showLoader() {
   loader.classList.toggle("hidden");
+}
+
+function getFilterSearchParams() {
+  return new URLSearchParams(new FormData(filters));
 }
 
 addMenuBtn.addEventListener("click", (event) => {
@@ -44,6 +50,19 @@ modal.addEventListener("close", (e) => {
   const activeForm = document.querySelector(".modal-form:not(.hidden)");
   activeForm.reset();
   activeForm.classList.toggle("hidden");
+});
+
+deleteProductForm.addEventListener("submit", async (e) => {
+  e.stopPropagation();
+  e.preventDefault();
+  modalContent.classList.toggle("hidden");
+  showLoader();
+  const queryParams = new URLSearchParams(new FormData(e.target));
+  const targetUrl = `${e.target.action}?${queryParams}`;
+  const response = await fetch(targetUrl, {
+    method: "DELETE",
+  });
+  window.location.href = `/?${getFilterSearchParams()};`;
 });
 
 modalContent.addEventListener("submit", async (e) => {
@@ -109,4 +128,23 @@ resetFiltersBtn.addEventListener("click", (e) => {
   defaultOrder.click();
 
   searchInput.value = "";
+});
+
+productsTable.addEventListener("click", (e) => {
+  e.stopPropagation();
+  if (e.target.tagName !== "BUTTON") {
+    return;
+  }
+  const row = e.target.closest("tr");
+
+  const btnAction = e.target.dataset.action;
+  const formHeaderText = capitalize(btnAction.replaceAll("-", " "));
+  modalFormHeader.textContent = formHeaderText;
+  const formId = `form-${btnAction}`;
+  submitModalFormBtn.setAttribute("form", formId);
+  modal.showModal();
+  const activeForm = document.querySelector(`#${formId}`);
+  activeForm.classList.toggle("hidden");
+
+  activeForm.elements["id"].value = row.dataset.id;
 });
