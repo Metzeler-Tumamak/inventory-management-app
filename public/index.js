@@ -18,15 +18,28 @@ const applyFiltersBtn = document.querySelector(
 );
 const resetFiltersBtn = document.querySelector(".reset-filter-btn");
 const searchInput = document.querySelector("#search-input");
+const addProductForm = document.querySelector("#form-add-product");
+const addCategoryForm = document.querySelector("#form-add-category");
 const productsTable = document.querySelector(".products tbody");
 const deleteProductForm = document.querySelector("#form-delete-product");
 
-function showLoader() {
+function toggleLoader() {
   loader.classList.toggle("hidden");
 }
 
 function getFilterSearchParams() {
   return new URLSearchParams(new FormData(filters));
+}
+
+function showForm(form) {
+  const btnAction = form.dataset.action;
+  const formHeaderText = capitalize(btnAction.replaceAll("-", " "));
+  modalFormHeader.textContent = formHeaderText;
+  const formId = `form-${btnAction}`;
+  submitModalFormBtn.setAttribute("form", formId);
+  modal.showModal();
+  const activeForm = document.querySelector(`#${formId}`);
+  activeForm.classList.toggle("hidden");
 }
 
 addMenuBtn.addEventListener("click", (event) => {
@@ -35,14 +48,7 @@ addMenuBtn.addEventListener("click", (event) => {
 
 addDropdown.addEventListener("click", (e) => {
   e.stopPropagation();
-  const btnAction = e.target.dataset.action;
-  const formHeaderText = capitalize(btnAction.replaceAll("-", " "));
-  modalFormHeader.textContent = formHeaderText;
-  const formId = `form-${btnAction}`;
-  submitModalFormBtn.setAttribute("form", formId);
-  modal.showModal();
-  const activeForm = document.querySelector(`#${formId}`);
-  activeForm.classList.toggle("hidden");
+  showForm(e.target);
   addDropdown.classList.toggle("hidden");
 });
 
@@ -50,47 +56,6 @@ modal.addEventListener("close", (e) => {
   const activeForm = document.querySelector(".modal-form:not(.hidden)");
   activeForm.reset();
   activeForm.classList.toggle("hidden");
-});
-
-deleteProductForm.addEventListener("submit", async (e) => {
-  e.stopPropagation();
-  e.preventDefault();
-  modalContent.classList.toggle("hidden");
-  showLoader();
-  const queryParams = new URLSearchParams(new FormData(e.target));
-  const targetUrl = `${e.target.action}?${queryParams}`;
-  const response = await fetch(targetUrl, {
-    method: "DELETE",
-  });
-  window.location.href = `/?${getFilterSearchParams()};`;
-});
-
-modalContent.addEventListener("submit", async (e) => {
-  modalContent.classList.toggle("hidden");
-  showLoader();
-  e.preventDefault();
-  e.stopPropagation();
-  const formData = new FormData(e.target);
-  const reqBody = {
-    name: formData.get("name").trim(),
-    category_id: formData.get("category_id"),
-    available: Number(formData.get("available")),
-    minimum: Number(formData.get("minimum")),
-    maximum: Number(formData.get("maximum")),
-    price: Number(formData.get("price")),
-  };
-
-  const url = e.target.action;
-
-  const response = await fetch(url, {
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    method: "POST",
-    body: new URLSearchParams(reqBody),
-  });
-
-  window.location.href = await response.url;
 });
 
 closeModalBtn.addEventListener("click", (e) => {
@@ -130,21 +95,69 @@ resetFiltersBtn.addEventListener("click", (e) => {
   searchInput.value = "";
 });
 
+addProductForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  modalContent.classList.toggle("hidden");
+  toggleLoader();
+  const formData = new FormData(e.target);
+  const reqBody = {
+    name: formData.get("name").trim(),
+    category_id: formData.get("category_id"),
+    available: Number(formData.get("available")),
+    minimum: Number(formData.get("minimum")),
+    maximum: Number(formData.get("maximum")),
+    price: Number(formData.get("price")),
+  };
+
+  const response = await fetch(e.target.action, {
+    header: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    method: e.target.method,
+    body: new URLSearchParams(reqBody),
+  });
+
+  if (response.ok) window.location.href = `/?${getFilterSearchParams()}`;
+});
+
+addCategoryForm.addEventListener("submit", async (e) => {
+  modalContent.classList.toggle("hidden");
+  toggleLoader();
+  const formData = new FormData(e.target);
+  const reqBody = {
+    name: formData.get("name").trim(),
+  };
+
+  const response = await fetch(e.target.action, {
+    header: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    method: e.target.method,
+    body: new URLSearchParams(reqBody),
+  });
+
+  if (response.ok) window.location.href = `/?${getFilterSearchParams()}`;
+});
+
+deleteProductForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  modalContent.classList.toggle("hidden");
+  toggleLoader();
+  const queryParams = new URLSearchParams(new FormData(e.target));
+  const targetUrl = `${e.target.action}?${queryParams}`;
+  const response = await fetch(targetUrl, {
+    method: "DELETE",
+  });
+
+  if (response.ok) window.location.href = `/?${getFilterSearchParams()};`;
+});
+
 productsTable.addEventListener("click", (e) => {
   e.stopPropagation();
   if (e.target.tagName !== "BUTTON") {
     return;
   }
   const row = e.target.closest("tr");
-
-  const btnAction = e.target.dataset.action;
-  const formHeaderText = capitalize(btnAction.replaceAll("-", " "));
-  modalFormHeader.textContent = formHeaderText;
-  const formId = `form-${btnAction}`;
-  submitModalFormBtn.setAttribute("form", formId);
-  modal.showModal();
-  const activeForm = document.querySelector(`#${formId}`);
-  activeForm.classList.toggle("hidden");
-
+  showForm(e.target);
   activeForm.elements["id"].value = row.dataset.id;
 });

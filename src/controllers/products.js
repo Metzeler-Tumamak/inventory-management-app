@@ -1,16 +1,17 @@
 const db = require("../db/queries");
 
 async function createProduct(req, res) {
+  console.log(req.body);
   let newProduct = null;
   try {
-    await db.postCreateProduct(req.body);
+    newProduct = await db.postCreateProduct(req.body);
   } catch (err) {
     throw new Error(
       "Issue encountered when creating new product: " + err.message,
     );
   }
 
-  res.redirect("/");
+  res.json(newProduct);
 }
 
 async function updateProduct(req, res) {

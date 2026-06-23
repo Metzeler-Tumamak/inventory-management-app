@@ -25,7 +25,7 @@
         
           <div class="field">
             <label for="name">Name</label>
-            <input id="name"  name="name" type="text">
+            <input id="name"  name="name" type="text" required>
           </div>
           <div class="field">
             <label for="category-id">Category</label>
@@ -38,23 +38,26 @@
           </div>
           <div class="field">
             <label for="available">Available</label>
-            <input id="available" name="available" type="number" step="1">
+            <input id="available" name="available" type="number" step="1" required>
           </div>
           <div class="field">
             <label for="minimum">Minimum</label>
             <input id="minimum"
             name="minimum"
             type="number"
-            step="1">
+            step="1"
+            required>
           </div>
           <div class="field">
             <label for="maximum">Maximum</label>
             <input type="number"  id="maximum" name="maximum" step="1"
+            required
             >
           </div>
           <div class="field">
             <label for="price">Price</label>
-            <input id="price" name="price" type="number" step="0.01">
+            <input id="price" name="price" type="number" step="0.01"
+            required>
           </div>
           
         </form>
