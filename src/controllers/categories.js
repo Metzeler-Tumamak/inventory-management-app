@@ -9,7 +9,7 @@ async function createCategory(req, res) {
     throw new Error("Error encountered when creating category: " + err.message);
   }
 
-  res.redirect("/");
+  res.status(201).end();
 }
 
 async function updateCategory(req, res) {
@@ -35,8 +35,7 @@ async function deleteCategory(req, res) {
     );
   }
 
-  // res.status(200).end();
-  res.redirect("/");
+  res.status(204).end();
 }
 
 module.exports = {

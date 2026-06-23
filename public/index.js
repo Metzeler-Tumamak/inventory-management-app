@@ -22,17 +22,18 @@ const addProductForm = document.querySelector("#form-add-product");
 const addCategoryForm = document.querySelector("#form-add-category");
 const productsTable = document.querySelector(".products tbody");
 const deleteProductForm = document.querySelector("#form-delete-product");
+const deleteCategoryForm = document.querySelector("#form-delete-category");
 
 function toggleLoader() {
   loader.classList.toggle("hidden");
 }
 
 function getFilterSearchParams() {
-  return new URLSearchParams(new FormData(filters));
+  return new URLSearchParams(new FormData(filters)).toString();
 }
 
-function showForm(form) {
-  const btnAction = form.dataset.action;
+function showForm(targetElem) {
+  const btnAction = targetElem.dataset.action;
   const formHeaderText = capitalize(btnAction.replaceAll("-", " "));
   modalFormHeader.textContent = formHeaderText;
   const formId = `form-${btnAction}`;
@@ -40,6 +41,7 @@ function showForm(form) {
   modal.showModal();
   const activeForm = document.querySelector(`#${formId}`);
   activeForm.classList.toggle("hidden");
+  return activeForm;
 }
 
 addMenuBtn.addEventListener("click", (event) => {
@@ -152,12 +154,26 @@ deleteProductForm.addEventListener("submit", async (e) => {
   if (response.ok) window.location.href = `/?${getFilterSearchParams()};`;
 });
 
+deleteCategoryForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  modalContent.classList.toggle("hidden");
+  toggleLoader();
+  const queryParams = new URLSearchParams(new FormData(e.target));
+  const targetUrl = `${e.target.action}?${queryParams}`;
+
+  const response = await fetch(targetUrl, {
+    method: "DELETE",
+  });
+
+  if (response.ok) window.location.href = `/?${getFilterSearchParams()}`;
+});
+
 productsTable.addEventListener("click", (e) => {
   e.stopPropagation();
   if (e.target.tagName !== "BUTTON") {
     return;
   }
   const row = e.target.closest("tr");
-  showForm(e.target);
+  const activeForm = showForm(e.target);
   activeForm.elements["id"].value = row.dataset.id;
 });
