@@ -255,7 +255,7 @@ h1 {
   background-color: var(--search-bar-bg);
   border: 1px solid var(--secondary-bg);
   border-radius: 5px;
-}
+  z-index: 2;
 
 .add-dropdown button {
   width: 100%;
