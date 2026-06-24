@@ -2,7 +2,7 @@ const pool = require("./pool");
 
 async function getAllProducts() {
   const data = await pool.query(
-    "SELECT p.id, p.name, c.name AS category, available, minimum, maximum, price FROM products AS p LEFT JOIN categories AS c ON p.category_id = c.id",
+    "SELECT p.id, p.name, c.name AS category, c.id AS category_id, available, minimum, maximum, price FROM products AS p LEFT JOIN categories AS c ON p.category_id = c.id",
   );
   return data.rows;
 }
@@ -16,7 +16,7 @@ async function getProductBySearch(name) {
 
 async function getProductByFilters(filters) {
   const { conditions, sort } = filters;
-  const sql = `SELECT p.id, p.name, c.name AS category, available, minimum, maximum, price FROM products AS p LEFT JOIN categories AS c ON p.category_id = c.id ${conditions} ${sort}`;
+  const sql = `SELECT p.id, p.name, c.name AS category, c.id AS category_id, available, minimum, maximum, price FROM products AS p LEFT JOIN categories AS c ON p.category_id = c.id ${conditions} ${sort}`;
   const data = await pool.query(sql);
   return data.rows;
 }
