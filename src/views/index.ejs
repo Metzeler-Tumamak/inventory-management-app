@@ -61,6 +61,50 @@
           </div>
           
         </form>
+         <form method="PUT" 
+        action="/products" 
+        id="form-update-product"
+        class="modal-form hidden" 
+        >
+          <input type="text" name="id" class="hidden">
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name"  name="name" type="text" required>
+          </div>
+          <div class="field">
+            <label for="category-id">Category</label>
+            <select id="category-id" name="category_id">
+              <option value="">Others</option>
+               <% categories.forEach(category => {%>
+                <option value="<%= category.id %>"><%= category.name %></option>
+                <% }); %>
+            </select>
+          </div>
+          <div class="field">
+            <label for="available">Available</label>
+            <input id="available" name="available" type="number" step="1" required>
+          </div>
+          <div class="field">
+            <label for="minimum">Minimum</label>
+            <input id="minimum"
+            name="minimum"
+            type="number"
+            step="1"
+            required>
+          </div>
+          <div class="field">
+            <label for="maximum">Maximum</label>
+            <input type="number"  id="maximum" name="maximum" step="1"
+            required
+            >
+          </div>
+          <div class="field">
+            <label for="price">Price</label>
+            <input id="price" name="price" type="number" step="0.01"
+            required>
+          </div>
+          
+        </form>
         <form method="POST" action="/categories" class="modal-form hidden" id="form-add-category">
           <div class="field">
             <input id="name"  name="name" type="text">
@@ -209,14 +253,14 @@
           </thead>
           <tbody>
             <% products.forEach(product => { %>
-              <% const {id, name, category, available, minimum, maximum, price} = product %> 
+              <% const {id, name, category, category_id, available, minimum, maximum, price} = product %> 
                 <tr data-id="<%= id %>">
-                  <th scope="row" class="sticky-col text-cell" data-field="name"><%= name %></th>
-                  <td class="text-cell" data-field="category"><%= category %></td>
-                  <td class="num-cell" data-field="available"><%= available %></td>
-                  <td class="num-cell" data-field="minimum"><%= minimum %></td>
-                  <td class="num-cell" data-field="maximum"><%= maximum %></td>
-                  <td class="num-cell" data-field="price">$<%= price %></td>
+                  <th scope="row" class="sticky-col text-cell" data-field="name" data-value="<%= name %>"><%= name %></th>
+                  <td class="text-cell" data-field="category_id" data-value="<%= category_id %>"><%= category %></td>
+                  <td class="num-cell" data-field="available" data-value="<%= available %>"><%= available %></td>
+                  <td class="num-cell" data-field="minimum" data-value="<%= minimum %>"><%= minimum %></td>
+                  <td class="num-cell" data-field="maximum" data-value="<%= maximum %>"><%= maximum %></td>
+                  <td class="num-cell" data-field="price" data-value="<%= price %>">$<%= price %></td>
                   <td class="action-cell">
                     <button type="button" data-action="update-product"> 
                       <i data-lucide="pencil"></i>

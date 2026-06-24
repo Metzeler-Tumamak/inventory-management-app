@@ -30,8 +30,8 @@ async function postCreateProduct(data) {
   return newProduct.rows[0];
 }
 
-async function putUpdateProduct(id, data) {
-  const { name, category_id, available, minimum, maximum, price } = data;
+async function putUpdateProduct(data) {
+  const { id, name, category_id, available, minimum, maximum, price } = data;
   const updatedProduct = await pool.query(
     "UPDATE products SET name=$2, category_id=$3, available=$4, minimum=$5, maximum=$6, price=$7 WHERE id=$1 RETURNING *",
     [id, name, category_id, available, minimum, maximum, price],

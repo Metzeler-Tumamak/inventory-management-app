@@ -23,6 +23,7 @@ const addCategoryForm = document.querySelector("#form-add-category");
 const productsTable = document.querySelector(".products tbody");
 const deleteProductForm = document.querySelector("#form-delete-product");
 const deleteCategoryForm = document.querySelector("#form-delete-category");
+const updateProductForm = document.querySelector("#form-update-product");
 
 function toggleLoader() {
   loader.classList.toggle("hidden");
@@ -168,6 +169,32 @@ deleteCategoryForm.addEventListener("submit", async (e) => {
   if (response.ok) window.location.href = `/?${getFilterSearchParams()}`;
 });
 
+updateProductForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  modalContent.classList.toggle("hidden");
+  toggleLoader();
+  const formData = new FormData(e.target);
+  const reqBody = {
+    id: formData.get("id").trim(),
+    name: formData.get("name").trim(),
+    category_id: formData.get("category_id"),
+    available: Number(formData.get("available")),
+    minimum: Number(formData.get("minimum")),
+    maximum: Number(formData.get("maximum")),
+    price: Number(formData.get("price")),
+  };
+
+  const response = await fetch(e.target.action, {
+    header: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    method: "PUT",
+    body: new URLSearchParams(reqBody),
+  });
+
+  if (response.ok) window.location.href = `/?${getFilterSearchParams()}`;
+});
+
 productsTable.addEventListener("click", (e) => {
   e.stopPropagation();
   if (e.target.tagName !== "BUTTON") {
@@ -175,5 +202,13 @@ productsTable.addEventListener("click", (e) => {
   }
   const row = e.target.closest("tr");
   const activeForm = showForm(e.target);
+  console.log(activeForm);
   activeForm.elements["id"].value = row.dataset.id;
+
+  if (activeForm.getAttribute("id").includes("update")) {
+    const fields = row.querySelectorAll("[data-field]");
+    fields.forEach((field) => {
+      activeForm.elements[field.dataset.field].value = field.dataset.value;
+    });
+  }
 });

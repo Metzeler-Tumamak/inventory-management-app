@@ -15,11 +15,10 @@ async function createProduct(req, res) {
 }
 
 async function updateProduct(req, res) {
-  const { id, data } = req.body;
   let updatedProduct = null;
 
   try {
-    updateProduct = await db.putUpdateProduct(id, data);
+    updateProduct = await db.putUpdateProduct(req.body);
   } catch (err) {
     throw new Error("Error encounterd when updating product: " + err.message);
   }
