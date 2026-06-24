@@ -1,33 +1,63 @@
 const db = require("../db/queries");
+const { body, validationResult, matchedData } = require("express-validator");
 
-async function createCategory(req, res) {
-  const { name } = req.body;
-  let newCategory = null;
+const validateCategory = [
+  body("id")
+    .optional()
+    .trim()
+    .notEmpty()
+    .withMessage("id must not be empty")
+    .isUUID("7")
+    .withMessage("id must be of type uuidv7"),
+  body("name")
+    .trim()
+    .notEmpty()
+    .withMessage("Name must not be empty")
+    .matches(/\s+\w+/g)
+    .withMessage("Name must only contain letters"),
+];
 
-  try {
-    newCategory = await db.postCreateCategory(name);
-  } catch (err) {
-    throw new Error("Error encountered when creating category: " + err.message);
-  }
+const createCategory = [
+  validateCategory,
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).send({ errors: errors.array() });
+    }
+    const { name } = matchedData(req);
 
-  res.json(newCategory);
-}
+    try {
+      await db.postCreateCategory(name);
+    } catch (err) {
+      throw new Error(
+        "Error encountered when creating category: " + err.message,
+      );
+    }
 
-async function updateCategory(req, res) {
-  const { id, name } = req.body;
-  let category = null;
+    res.status(201).end();
+  },
+];
 
-  try {
-    category = await db.putUpdateCategory(id, name);
-  } catch (err) {
-    throw new Error("Error encountered when updating category :" + err.message);
-  }
+const updateCategory = [
+  validateCategory,
+  async (req, res) => {
+    const { id, name } = req.body;
+    let category = null;
 
-  res.json(category);
-}
+    try {
+      category = await db.putUpdateCategory(id, name);
+    } catch (err) {
+      throw new Error(
+        "Error encountered when updating category :" + err.message,
+      );
+    }
+
+    res.json(category);
+  },
+];
 
 async function deleteCategory(req, res) {
-  const { id } = req.body;
+  const { id } = req.query;
   try {
     await db.deleteCategoryById(id);
   } catch (err) {
@@ -36,7 +66,7 @@ async function deleteCategory(req, res) {
     );
   }
 
-  res.status(200).end();
+  res.status(204).end();
 }
 
 module.exports = {
