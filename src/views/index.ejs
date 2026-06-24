@@ -256,7 +256,7 @@
               <% const {id, name, category, category_id, available, minimum, maximum, price} = product %> 
                 <tr data-id="<%= id %>">
                   <th scope="row" class="sticky-col text-cell" data-field="name" data-value="<%= name %>"><%= name %></th>
-                  <td class="text-cell" data-field="category_id" data-value="<%= category_id %>"><%= category %></td>
+                  <td class="text-cell" data-field="category_id" data-value="<%= category_id %>"><%= category ?? "Others" %></td>
                   <td class="num-cell" data-field="available" data-value="<%= available %>"><%= available %></td>
                   <td class="num-cell" data-field="minimum" data-value="<%= minimum %>"><%= minimum %></td>
                   <td class="num-cell" data-field="maximum" data-value="<%= maximum %>"><%= maximum %></td>
