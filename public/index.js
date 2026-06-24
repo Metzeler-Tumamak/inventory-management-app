@@ -71,6 +71,11 @@ searchInput.addEventListener("click", (e) => {
   }
 });
 
+searchInput.addEventListener("change", (e) => {
+  const changeEvent = new Event("change");
+  filters.dispatchEvent(changeEvent);
+});
+
 toggleFiltersBtn.addEventListener("click", (e) => {
   filters.classList.toggle("hidden");
 });
