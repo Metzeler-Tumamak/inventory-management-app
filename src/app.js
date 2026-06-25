@@ -5,7 +5,7 @@ const productsRouter = require("./routes/products");
 const categoriesRouter = require("./routes/categories");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT;
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");

@@ -38,12 +38,16 @@ ON CONFLICT (name) DO NOTHING;
 
 async function main() {
   console.log("seeding");
+  // const client = new Client({
+  //   host: process.env.HOST,
+  //   user: process.env.USER,
+  //   database: process.env.DATABASE,
+  //   password: process.env.PASSWORD,
+  //   port: process.env.PORT,
+  // });
+
   const client = new Client({
-    host: process.env.HOST,
-    user: process.env.USER,
-    database: process.env.DATABASE,
-    password: process.env.PASSWORD,
-    port: process.env.PORT,
+    connectionString: process.env.DATABASE_URL,
   });
   try {
     await client.connect();

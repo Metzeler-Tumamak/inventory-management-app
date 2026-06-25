@@ -4,9 +4,9 @@
   "description": "Inventory management for TOP",
   "main": "index.js",
   "scripts": {
-    "start": "node --env-file-exists=.env src/app.js",
-    "dev": "node --env-file-exists=.env --watch --inspect src/app.js",
-    "seed": "node --env-file-exists=.env src/db/seed.js"
+    "start": "node --env-file-if-exists=.env src/app.js",
+    "dev": "node --env-file-if-exists=.env --watch --inspect src/app.js",
+    "seed": "node --env-file-if-exists=.env src/db/seed.js"
   },
   "keywords": [],
   "author": "",
