@@ -4,7 +4,7 @@
   "description": "Inventory management for TOP",
   "main": "index.js",
   "scripts": {
-    "start": "node --env-file=.env src/app.js",
+    "start": "node src/app.js",
     "dev": "node --env-file=.env --watch --inspect src/app.js",
     "seed": "node --env-file=.env src/db/seed.js"
   },
